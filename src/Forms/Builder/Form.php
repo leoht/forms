@@ -5,18 +5,44 @@ use Forms\Field\Field;
 use Forms\Builder\FormBuilder;
 use Forms\Validation\Validator;
 
+/**
+ * A form.
+ * 
+ * @author Leo Hetsch 
+ */
 class Form
 {
+    /**
+     * @var FormBuilder 
+     */
     protected $builder;
     
+    /**
+     * @var array 
+     */
     protected $fields;
     
+    /**
+     * @var string 
+     */
     protected $method;
     
+    /**
+     * @var string 
+     */
     protected $action;
     
+    /**
+     * @var array 
+     */
     protected $raw_data;
     
+    /**
+     * Load the form from an HTTP request.
+     * 
+     * @static
+     * @return Form
+     */
     public static function fromRequest(FormBuilder $builder)
     {
         $form = new self($builder);
@@ -27,7 +53,11 @@ class Form
         return $form;
     }
     
-    
+    /**
+     * Build the form from raw POST data.
+     * 
+     * @return \Forms\Builder\Form 
+     */
     public function buildFromRaw()
     {
         $raw = $this->raw_data;
@@ -69,7 +99,11 @@ class Form
         return $this;
     }
     
-    
+    /**
+     * Test if the form is valid using rules.
+     * 
+     * @return boolean 
+     */
     public function isValid()
     {
         $results = Validator::getValidation($this);
@@ -85,7 +119,11 @@ class Form
     }
     
     
-    
+    /**
+     * Get the form body as HTML.
+     * 
+     * @return string 
+     */
     public function getBody()
     {
         $fields = $this->getFields();
@@ -112,23 +150,34 @@ class Form
         return $body;
     }
     
+    
+    /**
+     * Constructor
+     * @param FormBuilder $builder 
+     */
     public function __construct(FormBuilder $builder)
     {
         $this->builder = $builder;
         $this->fields = array();
     }
     
+    /**
+     * Add a field
+     * @param Field $field 
+     */
     public function addField(Field $field)
     {
         $this->fields[$field->getName()] = $field;
     }
     
+    /**
+     * Get the form fields
+     * @return array 
+     */
     public function getFields()
     {
         return $this->fields;
     }
-    
-    
     
     /**
      * @param string $name
@@ -140,6 +189,11 @@ class Form
         return $this->fields[$name];
     }
     
+    /**
+     * Test if a form has a field
+     * @param string $name
+     * @return boolean 
+     */
     public function hasField($name)
     {
         return array_key_exists($name, $this->fields);

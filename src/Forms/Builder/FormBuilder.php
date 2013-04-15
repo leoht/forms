@@ -3,6 +3,11 @@ namespace Forms\Builder;
 
 use Forms\Builder\Form;
 
+/**
+ * Builds a form.
+ * 
+ * @author Leo Hetsch 
+ */
 class FormBuilder
 {
     
@@ -35,17 +40,22 @@ class FormBuilder
         $this->form = $form;
     }
     
-    
+    /**
+     * Load a form from an HTTP POST request. 
+     */
     public function loadFromRequest()
     {
         $this->form = Form::fromRequest($this);
     }
     
-    
+    /**
+     * @return Form 
+     */
     public function getForm()
     {
         return $this->form;
     }
+    
     
     /**
      * Add a field to the form.
@@ -82,9 +92,20 @@ class FormBuilder
         throw new \LogicException(sprintf("There is no field type called '%s'.", $type));
     }
     
-    
+    /**
+     * Add a submit button with the target URL and the submission method
+     * 
+     * @param string $label
+     * @param string $action
+     * @param string $method
+     * @return Form 
+     */
     public function addSubmit($label, $action, $method = 'POST')
     {
+        if ($method != 'POST' && $method != 'GET') {
+            throw new \InvalidArgumentException("Attribute 'method' must be either 'GET' or 'POST'");
+        }
+        
         $types = $this->getFieldTypes();
         
         $class = $types['submit'];

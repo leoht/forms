@@ -4,11 +4,11 @@ namespace Forms\Validation\Rule;
 use Forms\Validation\Rule\Rule;
 use Forms\Field\Field;
 
-class NotEmptyRule extends Rule
+class NumberRule extends Rule
 {
     public function getName()
     {
-        return 'not_empty';
+        return 'number';
     }
     
     public function isValueValid($value)
@@ -27,7 +27,7 @@ class NotEmptyRule extends Rule
             return true;
         }
         
-        return null !== $field->getValue() && '' != $field->getValue();
+        return is_numeric($field->getValue()) || preg_match('#^[0-9]+$#', $field->getValue());
     }
     
 }

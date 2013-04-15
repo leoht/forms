@@ -4,30 +4,28 @@ namespace Forms\Validation\Rule;
 use Forms\Validation\Rule\Rule;
 use Forms\Field\Field;
 
-class NotEmptyRule extends Rule
+class RegexpRule extends Rule
 {
     public function getName()
     {
-        return 'not_empty';
+        return 'regexp';
     }
     
     public function isValueValid($value)
     {
-        return is_bool($value);
+        return is_string($value);
     }
     
     public function getExpectedValueType()
     {
-        return 'boolean';
+        return 'string';
     }
     
     public function isFieldValid(Field $field)
     {
-        if (true !== $this->getValue()) {
-            return true;
-        }
+        $regexp = $this->getValue();
         
-        return null !== $field->getValue() && '' != $field->getValue();
+        return preg_match("#$regexp#", $field->getValue());
     }
     
 }

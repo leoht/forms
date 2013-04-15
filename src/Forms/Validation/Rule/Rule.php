@@ -4,6 +4,9 @@ namespace Forms\Validation\Rule;
 use Forms\Field\Field;
 
 /**
+ * An abstract validation rule.
+ * 
+ * @author Leo Hetsch
  * @abstract 
  */
 abstract class Rule
@@ -56,4 +59,5 @@ abstract class Rule
      * Applies the rule on a field and tests if its value is valid.
      */
     abstract public function isFieldValid(Field $field);
+    
 }

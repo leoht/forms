@@ -17,6 +17,8 @@ class Validator
             "minlength" =>  $namespace . "MinLengthValueRule",
             "between"   =>  $namespace . "BetweenRule",
             "not_empty" =>  $namespace . "NotEmptyRule",
+            "number"    =>  $namespace . "NumberRule",
+            "regexp"    =>  $namespace . "RegexpRule",
         );
     }
     
@@ -55,6 +57,8 @@ class Validator
             if ($field->hasRules()) {
                 $rules = $field->getRules();
                 
+                var_dump($rules);
+                
                 foreach($rules as $name => $rule) {
                     if (self::hasRule($name)) {
                         
@@ -63,6 +67,8 @@ class Validator
                                 'valid' => false,
                                 'rules' => $rules
                             );
+                            
+                            break;
                         } else {
                             $result[$field->getName()] = array(
                                 'valid' => true
@@ -72,7 +78,6 @@ class Validator
                 }
             }
         }
-        
         
         return $result;
     }

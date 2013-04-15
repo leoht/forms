@@ -27,6 +27,7 @@ abstract class Field
         $this->label = $label;
         $this->id = $id;
         $this->value = $value;
+        $this->rules = array();
         
         $this->position = self::$current_position;
         

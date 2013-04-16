@@ -6,7 +6,16 @@ use Forms\Field\Field;
 class SelectField extends Field
 {
     
+    protected $multiple = false;
+    
     protected $options = array();
+    
+    public function setMultiple()
+    {
+        $this->multiple = true;
+        
+        return $this;
+    }
     
     public function getBody()
     {
@@ -17,10 +26,12 @@ class SelectField extends Field
         
         $options = '';
         
+        $multiple = $this->multiple ? 'multiple' : '';
+        
         foreach($this->options as $opt_value => $opt_label) {
             $options .= "<option value=\"$opt_value\" >$opt_label</option>";
         }
-        return "<label for=\"$id\" >$label</label> <select name=\"$name\" id=\"$id\" >
+        return "<label for=\"$id\" >$label</label> <select $multiple name=\"$name\" id=\"$id\" >
                     $options \r\n
                 </select>";
     }

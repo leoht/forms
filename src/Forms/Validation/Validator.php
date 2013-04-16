@@ -19,6 +19,7 @@ class Validator
             "not_empty" =>  $namespace . "NotEmptyRule",
             "number"    =>  $namespace . "NumberRule",
             "regexp"    =>  $namespace . "RegexpRule",
+            "equals"    =>  $namespace . "EqualsRule",
         );
     }
     

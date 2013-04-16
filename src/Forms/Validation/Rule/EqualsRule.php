@@ -23,7 +23,12 @@ class EqualsRule extends Rule
     
     public function isFieldValid(Field $field)
     {
-        return $this->getValue() == $field->getValue();
+        return $this->value == sha1($field->getValue());
+    }
+    
+    public function getValue()
+    {
+        return sha1($this->value);
     }
     
 }

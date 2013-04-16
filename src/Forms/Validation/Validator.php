@@ -57,8 +57,6 @@ class Validator
             if ($field->hasRules()) {
                 $rules = $field->getRules();
                 
-                var_dump($rules);
-                
                 foreach($rules as $name => $rule) {
                     if (self::hasRule($name)) {
                         

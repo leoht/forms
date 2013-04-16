@@ -15,6 +15,7 @@ class Builder extends FormBuilder
             'password'  => $namespace . "PasswordField",
             'select'    => $namespace . "SelectField",
             'checkbox'  => $namespace . "CheckboxField",
+            'choice'    => $namespace . "ChoiceField",
             'email'     => $namespace . "EmailField",
             'date'      => $namespace . "DateField",
             'submit'    => $namespace . "SubmitField",

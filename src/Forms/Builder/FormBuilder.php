@@ -17,15 +17,11 @@ class FormBuilder
     protected $form;
     
     
-    
     /**
-     * Get the different field types.
-     * @return array 
+     * @var array 
      */
-    public function getFieldTypes()
-    {
-        return array();
-    }
+    protected $configuration;
+    
     
     
     /**
@@ -39,6 +35,7 @@ class FormBuilder
         }
         
         $this->form = $form;
+        $this->configuration = $this->getDefaultConfiguration();
     }
     
     /**
@@ -50,11 +47,58 @@ class FormBuilder
     }
     
     /**
-     * @return Form 
+     * Get the different field types.
+     * @return array 
      */
-    public function getForm()
+    public function getFieldTypes()
     {
-        return $this->form;
+        return array();
+    }
+    
+    /**
+     * Get the default configuration for the builder
+     * The configuration is automatically loaded while instanciating the builder.
+     * 
+     * @return array 
+     */
+    
+    public function getDefaultConfiguration()
+    {
+        return array(
+            'html5_required' => true
+        );
+    }
+    
+    
+    /**
+     * @return mixed 
+     */
+    public function getConfigValue($key)
+    {
+        if (!array_key_exists($key, $this->getConfiguration())) {
+            throw new \RuntimeException(sprintf("The configuration key '%s' is not a valid key.", $key));
+        }
+        
+        $config = $this->getConfiguration();
+        return $config[$key];
+    }
+    
+    
+    /**
+     * Override default configuration values with new ones
+     * 
+     * @param array $config the values to override
+     */
+    
+    public function configure(array $config)
+    {
+        foreach($config as $key => $value) {
+            if (array_key_exists($key, $this->getConfiguration())) {
+                $this->configuration[$key] = $value;
+            }
+        }
+        
+        return $this;
     }
     
     
@@ -149,4 +193,24 @@ class FormBuilder
             return $types['checkbox'];
         }
     }
+    
+    
+    /**
+     * @return Form 
+     */
+    public function getForm()
+    {
+        return $this->form;
+    }
+    
+    
+    /**
+     * @return array 
+     */
+    public function getConfiguration()
+    {
+        return $this->configuration;
+    }
+    
+    
 }

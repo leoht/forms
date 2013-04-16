@@ -135,7 +135,9 @@ class Form
         
         $config = $this->getBuilder()->getConfiguration();
         
-        $body = "<form action=\"$action\" id=\"form_$id\" method=\"$method\" enctype=\"multipart/form-data\" > \r\n";
+        $body = "<form action=\"$action\" id=\"form_$id\" method=\"$method\" enctype=\"multipart/form-data\" > \r\n
+                    <p id=\"msg_form_$id\" >
+                    </p>";
         
         foreach($fields as $field) {
             $body .= "<p> \r\n";
@@ -159,6 +161,8 @@ class Form
                             $(function(){
                                 $('#form_{$id}').submit(function(e){
                                     e.preventDefault();
+                                    var failed = false;
+                                
                                     $.ajax({
                                         url : '$action',
                                         type : '$method',
@@ -167,9 +171,11 @@ class Form
                                         success : function(data){
                                             $.each(data, function(field,values){
                                                 if (values['valid'] == false){
-                                                    alert('not valid !');
+                                                    failed = true;
                                                 }
                                             });
+                                
+                                            if (failed) { $('#form_{$id} #msg_form_{$id}').html('{$config['ajax_error_msg']}'); }
                                         }
                                     });
                                 

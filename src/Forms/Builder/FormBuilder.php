@@ -67,7 +67,8 @@ class FormBuilder
     {
         return array(
             'html5_required' => true,
-            'use_ajax' => false
+            'use_ajax' => false,
+            'ajax_error_msg' => 'There has been validation errors while submitting the form.'
         );
     }
     

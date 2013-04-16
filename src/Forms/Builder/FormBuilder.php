@@ -2,6 +2,7 @@
 namespace Forms\Builder;
 
 use Forms\Builder\Form;
+use Forms\Validation\Validator;
 
 /**
  * Builds a form.
@@ -65,7 +66,8 @@ class FormBuilder
     public function getDefaultConfiguration()
     {
         return array(
-            'html5_required' => true
+            'html5_required' => true,
+            'use_ajax' => false
         );
     }
     
@@ -192,6 +194,16 @@ class FormBuilder
         if (is_bool($value)) {
             return $types['checkbox'];
         }
+    }
+    
+    /**
+     * Write a response for AJAX. 
+     */
+    public function sendAjaxResponse()
+    {
+        $results = Validator::getValidation($this->getForm());
+        
+        echo json_encode($results);
     }
     
     

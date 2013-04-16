@@ -25,7 +25,7 @@ abstract class Field
     {
         $this->name = $name;
         $this->label = $label;
-        $this->id = $id;
+        $this->id = $id != null ? $id : $name;
         $this->value = $value;
         $this->rules = array();
         $this->builder_configuration = $builder_configuration;

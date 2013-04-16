@@ -119,6 +119,8 @@ class Form
     }
     
     
+    
+    
     /**
      * Get the form body as HTML.
      * 
@@ -129,9 +131,12 @@ class Form
         $fields = $this->getFields();
         $method = $this->method;
         $action = $this->action;
+        $id = uniqid();
         
-        $body = "<form action=\"$action\" method=\"$method\" enctype=\"multipart/form-data\" > \r\n";
-
+        $config = $this->getBuilder()->getConfiguration();
+        
+        $body = "<form action=\"$action\" id=\"form_$id\" method=\"$method\" enctype=\"multipart/form-data\" > \r\n";
+        
         foreach($fields as $field) {
             $body .= "<p> \r\n";
             
@@ -143,12 +148,40 @@ class Form
                 $body .= $field->getRuleBody() . "\r\n";
             }
             $body .= "</p> \r\n";
+            
         }
         
         $body .= "</form> \r\n";
         
+        if ($config['use_ajax']) {
+            $body .= "<script src=\"http://ajax.googleapis.com/ajax/libs/jquery/1.9.1/jquery.min.js\"></script>\r\n
+                      <script type=\"text/javascript\" >
+                            $(function(){
+                                $('#form_{$id}').submit(function(e){
+                                    e.preventDefault();
+                                    $.ajax({
+                                        url : '$action',
+                                        type : '$method',
+                                        dataType : 'json',
+                                        data : $(this).serialize(),
+                                        success : function(data){
+                                            $.each(data, function(field,values){
+                                                if (values['valid'] == false){
+                                                    alert('not valid !');
+                                                }
+                                            });
+                                        }
+                                    });
+                                
+                                });
+                            });
+                        </script>";
+        }
+        
         return $body;
     }
+    
+    
     
     
     /**
@@ -199,6 +232,10 @@ class Form
         return array_key_exists($name, $this->fields);
     }
     
+    /**
+     * Get the form builder
+     * @return FormBuilder 
+     */
     public function getBuilder()
     {
         return $this->builder;

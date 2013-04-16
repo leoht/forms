@@ -20,6 +20,7 @@ class Validator
             "number"    =>  $namespace . "NumberRule",
             "regexp"    =>  $namespace . "RegexpRule",
             "equals"    =>  $namespace . "EqualsRule",
+            "in"        =>  $namespace . "InRule",
         );
     }
     

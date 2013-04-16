@@ -128,7 +128,7 @@ class FormBuilder
                     throw new \LogicException(sprintf("Class '%s' not found for field type '%s'.", $class, $fieldType));
                 }
                 
-                $this->form->addField(new $class($name, $label, $id, $value));
+                $this->form->addField(new $class($name, $label, $id, $value, $this->getConfiguration()));
                 
                 return $this->form->getField($name);
             }

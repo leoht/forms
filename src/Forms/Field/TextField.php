@@ -13,7 +13,8 @@ class TextField extends Field
         $value  = $this->getValue();
         $label  = $this->getLabel();
         
-        $required = $this->hasRule('not_empty') ? 'required' : '';
+        $config = $this->getBuilderConfiguration();
+        $required = $this->hasRule('not_empty') && $config['html5_required'] ? 'required' : '';
         
         return "<label for=\"$id\" >$label</label> <input type=\"text\" name=\"$name\" id=\"$id\" value=\"$value\" $required />";
     }

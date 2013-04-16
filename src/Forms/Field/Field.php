@@ -17,17 +17,18 @@ abstract class Field
     
     protected $rules;
     
-    protected $position;
+    protected $builder_configuration;
     
     protected static $current_position = 0;
     
-    public function __construct($name, $label = null, $id = null, $value = null)
+    public function __construct($name, $label = null, $id = null, $value = null, array $builder_configuration = array())
     {
         $this->name = $name;
         $this->label = $label;
         $this->id = $id;
         $this->value = $value;
         $this->rules = array();
+        $this->builder_configuration = $builder_configuration;
         
         $this->position = self::$current_position;
         
@@ -155,6 +156,12 @@ abstract class Field
         $type = $this->getFieldName();
         
         return "<input type=\"hidden\" name=\"_type_$name\" value=\"$type\" />";
+    }
+    
+    
+    public function getBuilderConfiguration()
+    {
+        return $this->builder_configuration;
     }
     
 }

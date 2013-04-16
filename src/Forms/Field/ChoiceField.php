@@ -22,7 +22,8 @@ class ChoiceField extends Field
         $value  = $this->getValue() ? 'checked' : '';
         $label  = $this->getLabel();
         
-        $required = $this->hasRule('not_empty') ? 'required' : '';
+        $config = $this->getBuilderConfiguration();
+        $required = $this->hasRule('not_empty') && $config['html5_required'] ? 'required' : '';
         
         $body = "$label ";
         foreach($this->choices as $opt_value => $opt_label) {

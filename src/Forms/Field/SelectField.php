@@ -38,7 +38,9 @@ class SelectField extends Field
         $options = '<option value="" ></option>';
         
         $multiple = $this->multiple ? 'multiple' : '';
-        $required = $this->hasRule('not_empty') ? 'required' : '';
+        
+        $config = $this->getBuilderConfiguration();
+        $required = $this->hasRule('not_empty') && $config['html5_required'] ? 'required' : '';
         
         foreach($this->options as $opt_value => $opt) {
             $opt_label = $opt['label'];

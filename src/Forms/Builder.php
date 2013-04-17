@@ -18,6 +18,7 @@ class Builder extends FormBuilder
             'choice'    => $namespace . "ChoiceField",
             'email'     => $namespace . "EmailField",
             'quiz'      => $namespace . "QuizField",
+            'captcha'   => $namespace . "SimpleCaptchaField",
             'submit'    => $namespace . "SubmitField",
         );
     }

@@ -19,6 +19,7 @@ class Builder extends FormBuilder
             'email'     => $namespace . "EmailField",
             'quiz'      => $namespace . "QuizField",
             'captcha'   => $namespace . "SimpleCaptchaField",
+            'object'    => $namespace . "ObjectField",
             'submit'    => $namespace . "SubmitField",
         );
     }

@@ -5,7 +5,7 @@ use Forms\Builder\Form;
 use Forms\Validation\Validator;
 
 /**
- * Builds a form.
+ * Build a form.
  * 
  * @author Leo Hetsch 
  */

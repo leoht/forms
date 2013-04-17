@@ -3,6 +3,9 @@ namespace Forms\Field;
 
 use Forms\Field\Field;
 
+/**
+ * A checkbox 
+ */
 class CheckboxField extends Field
 {
     

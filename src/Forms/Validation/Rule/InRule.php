@@ -4,6 +4,10 @@ namespace Forms\Validation\Rule;
 use Forms\Validation\Rule\Rule;
 use Forms\Field\Field;
 
+/**
+ * InRule :
+ * Field value must be in an array of values 
+ */
 class InRule extends Rule
 {
     public function getName()

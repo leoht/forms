@@ -3,6 +3,9 @@ namespace Forms\Field;
 
 use Forms\Field\Field;
 
+/**
+ * Simple password field  
+ */
 class PasswordField extends Field
 {
     

@@ -4,6 +4,10 @@ namespace Forms\Validation\Rule;
 use Forms\Validation\Rule\Rule;
 use Forms\Field\Field;
 
+/**
+ * BetweenRule :
+ * Field value must be between two values (maximum and minimum) 
+ */
 class BetweenRule extends Rule
 {
     public function getName()

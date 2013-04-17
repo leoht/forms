@@ -3,6 +3,10 @@ namespace Forms\Field;
 
 use Forms\Field\Field;
 
+/**
+ * A field type for an email adress.
+ * Validity of the email adress will be automatically checked while submitting the form. 
+ */
 class EmailField extends Field
 {
     
@@ -10,6 +14,7 @@ class EmailField extends Field
     {
         parent::__construct($name, $label, $id, $value);
         
+        // adding the regexp rule to check the email adress
         $this->addRules(array(
             'regexp' => '^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.(([A-Za-z]{2})|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$'
         ));
@@ -32,6 +37,6 @@ class EmailField extends Field
 
     public function getFieldName()
     {
-        return 'text';
+        return 'email';
     }
 }

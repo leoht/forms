@@ -3,10 +3,27 @@ namespace Forms\Field;
 
 use Forms\Field\Field;
 
+/**
+ * Quiz field type allow to propose a question randomly
+ * choosen in a list of questions. The field will be valid only
+ * it the given input match the correct answer.
+ * 
+ * @author Léo Hetsch
+ */
 class QuizField extends Field
 {
+    /**
+     * @var array 
+     */
     protected $questions = array();
     
+    /**
+     * Add a question
+     * 
+     * @param string $question
+     * @param string $answer The answer to the question. Multiple possibilities can be entered, separating each one by a pipe (|)
+     * @return \Forms\Field\QuizField 
+     */
     public function addQuestion($question, $answer)
     {
         $this->questions[] = array(
@@ -16,6 +33,11 @@ class QuizField extends Field
         return $this;
     }
     
+    /**
+     * Get a randomly choosen question
+     * 
+     * @return array 
+     */
     public function getRandomQuestion()
     {
         $i = mt_rand(0, count($this->questions) - 1);

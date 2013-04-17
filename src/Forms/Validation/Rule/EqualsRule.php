@@ -4,6 +4,13 @@ namespace Forms\Validation\Rule;
 use Forms\Validation\Rule\Rule;
 use Forms\Field\Field;
 
+/**
+ * EqualsRule :
+ * Field value must equals a certain value.
+ * Since this rule can be used for captchas or quizzes (or anything else like this),
+ * the value stored in the hidden input is hashed by sha1 algorithm, avoiding user or bots
+ * reading it in the page source code.
+ */
 class EqualsRule extends Rule
 {
     public function getName()

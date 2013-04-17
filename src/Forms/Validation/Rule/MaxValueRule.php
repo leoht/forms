@@ -4,6 +4,10 @@ namespace Forms\Validation\Rule;
 use Forms\Validation\Rule\Rule;
 use Forms\Field\Field;
 
+/**
+ * MaxValueRule :
+ * Field value must be lower than a certain value 
+ */
 class MaxValueRule extends Rule
 {
     public function getName()

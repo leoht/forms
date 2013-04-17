@@ -3,6 +3,9 @@ namespace Forms\Field;
 
 use Forms\Field\Field;
 
+/**
+ * A "submit" button 
+ */
 class SubmitField extends Field
 {
     

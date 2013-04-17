@@ -3,6 +3,9 @@ namespace Forms\Field;
 
 use Forms\Field\Field;
 
+/**
+ * Choice is a field that creates a radio button for each possibility.
+ */
 class ChoiceField extends Field
 {
     

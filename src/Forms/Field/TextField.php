@@ -3,6 +3,9 @@ namespace Forms\Field;
 
 use Forms\Field\Field;
 
+/**
+ * Simple text field type 
+ */
 class TextField extends Field
 {
     

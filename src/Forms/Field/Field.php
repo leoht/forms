@@ -4,23 +4,53 @@ namespace Forms\Field;
 use Forms\Validation\Validator;
 use Forms\Validation\Rule\Rule;
 
+/**
+ * An abstract field type
+ * 
+ * @author Léo Hetsch
+ * @abstract 
+ */
 abstract class Field
 {
-    
+    /**
+     * @var string 
+     */
     protected $name;
     
+    /**
+     * @var string 
+     */
     protected $id;
     
+    /**
+     * @var string 
+     */
     protected $label;
     
+    /**
+     * @var string 
+     */
     protected $value;
     
+    /**
+     * @var array 
+     */
     protected $rules;
     
+    /**
+     * @var array 
+     */
     protected $builder_configuration;
     
-    protected static $current_position = 0;
-    
+    /**
+     * Constructor
+     * 
+     * @param string $name
+     * @param string $label
+     * @param string $id
+     * @param string $value
+     * @param array $builder_configuration 
+     */
     public function __construct($name, $label = null, $id = null, $value = null, array $builder_configuration = array())
     {
         $this->name = $name;
@@ -29,10 +59,7 @@ abstract class Field
         $this->value = $value;
         $this->rules = array();
         $this->builder_configuration = $builder_configuration;
-        
-        $this->position = self::$current_position;
-        
-        self::$current_position++;
+                
     }
     
     public function getName()
@@ -80,6 +107,13 @@ abstract class Field
         $this->rules[$rule->getName()] = $rule;
     }
     
+    /**
+     * Add validation rules to the field
+     * 
+     * @param array $rules
+     * @return \Forms\Field\Field
+     * @throws \RuntimeException if the rule doesn't exist
+     */
     public function addRules(array $rules)
     {
         foreach ($rules as $name => $value) {
@@ -100,6 +134,11 @@ abstract class Field
         return $this->rules;
     }
     
+    /**
+     * Get the serialized rules array (used for saving rules in a hidden input)
+     * 
+     * @return type 
+     */
     public function getRulesSerialized()
     {
         $rules = $this->getRules();
@@ -111,6 +150,12 @@ abstract class Field
         return serialize($array);
     }
     
+    /**
+     * Unserialize the rules array
+     * 
+     * @param string $serialized_rules
+     * @return \Forms\Field\Field 
+     */
     public function unserializeRules($serialized_rules)
     {
         $rules = unserialize($serialized_rules);
@@ -142,6 +187,11 @@ abstract class Field
     
     abstract public function getBody();
 
+    /**
+     * Get the body of the hidden input that stores the rules
+     * 
+     * @return string 
+     */
     public function getRuleBody()
     {
         $name = $this->getName();
@@ -150,6 +200,11 @@ abstract class Field
         return "<input type=\"hidden\" name=\"_rules_$name\" value='$value' />";
     }
     
+    /**
+     * Get the body of the hidden input that stores field metadata
+     * 
+     * @return string 
+     */
     public function getMetadataBody()
     {
         $name = $this->getName();
@@ -158,7 +213,11 @@ abstract class Field
         return "<input type=\"hidden\" name=\"_type_$name\" value=\"$type\" />";
     }
     
-    
+    /**
+     * Get the builder configuration array
+     * 
+     * @return array 
+     */
     public function getBuilderConfiguration()
     {
         return $this->builder_configuration;

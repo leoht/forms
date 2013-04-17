@@ -3,6 +3,9 @@ namespace Forms\Field;
 
 use Forms\Field\Field;
 
+/**
+ * A select field 
+ */
 class SelectField extends Field
 {
     

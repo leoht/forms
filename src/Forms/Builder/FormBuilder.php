@@ -17,6 +17,11 @@ class FormBuilder
      */
     protected $form;
     
+    /**
+     * @var array 
+     */
+    protected $extra_types;
+    
     
     /**
      * @var array 
@@ -36,6 +41,7 @@ class FormBuilder
         }
         
         $this->form = $form;
+        $this->extra_types = array();
         $this->configuration = $this->getDefaultConfiguration();
     }
     
@@ -56,6 +62,17 @@ class FormBuilder
         return array();
     }
     
+    
+    /**
+     * Get the added extra field types.
+     * @return array 
+     */
+    public function getExtraFieldTypes()
+    {
+        return $this->extra_types;
+    }
+
+
     /**
      * Get the default configuration for the builder
      * The configuration is automatically loaded while instanciating the builder.
@@ -164,6 +181,16 @@ class FormBuilder
         $this->form->setMethod($method);
         
         return $this->form;
+    }
+    
+    
+    public function addFieldType($type, $classname)
+    {
+        if ( !class_exists($classname) ) {
+            throw new \InvalidArgumentException(sprintf("Class '%s' doesn't exist.", $classname));
+        }
+        
+        $this->extra_types[$type] = $classname;
     }
     
     /**

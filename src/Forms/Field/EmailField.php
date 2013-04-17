@@ -11,7 +11,7 @@ class EmailField extends Field
         parent::__construct($name, $label, $id, $value);
         
         $this->addRules(array(
-            'regexp' => '^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.(?:[A-Z]{2}|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$'
+            'regexp' => '^[A-Za-z0-9._+-]+@[A-Za-z0-9.-]+\.(([A-Za-z]{2})|com|org|net|edu|gov|mil|biz|info|mobi|name|aero|asia|jobs|museum)$'
         ));
     }
     

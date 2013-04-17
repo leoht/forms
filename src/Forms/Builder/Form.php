@@ -46,7 +46,15 @@ class Form
     public static function fromRequest(FormBuilder $builder)
     {
         $form = new self($builder);
-        $form->raw_data = $_POST;
+        
+        $raw = $_POST;
+        if (!empty($_FILES)) {
+            foreach($_FILES as $name => $file) {
+                $raw[$name] = serialize($file);
+            }
+        }
+        
+        $form->raw_data = $raw;
         
         $form->buildFromRaw();
         

@@ -17,6 +17,7 @@ class Builder extends FormBuilder
             'checkbox'  => $namespace . "CheckboxField",
             'choice'    => $namespace . "ChoiceField",
             'email'     => $namespace . "EmailField",
+            'file'      => $namespace . "FileField",
             'quiz'      => $namespace . "QuizField",
             'captcha'   => $namespace . "SimpleCaptchaField",
             'object'    => $namespace . "ObjectField",

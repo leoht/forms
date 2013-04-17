@@ -12,6 +12,7 @@ class SubmitField extends Field
     public function __construct($value)
     {
         $this->value = $value;
+        $this->rules = array();
     }
     
     public function getBody()

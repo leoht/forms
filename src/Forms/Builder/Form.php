@@ -94,6 +94,16 @@ class Form
                     $this->addField($field);
                 }
             }
+            
+            else if (preg_match('#^_type_(.+)$#is', $key, $matches)) { // metadata
+                $name = $matches[1];
+                
+                if (!$this->hasField($name)) {
+                    $type = $types[$raw["_type_$name"]];
+                    $field = new $type($name);
+                    $this->addField($field);
+                }
+            }
         }
         
         return $this;

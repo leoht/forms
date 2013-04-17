@@ -10,16 +10,33 @@ class ObjectField extends Field
     
     public function __construct($name, $label = null, $id = null, $value = null, array $builder_configuration = array())
     {
-        if ( !is_object($value) ) {
+        if ( $value && !is_object($value) ) {
             throw new \InvalidArgumentException("Value of field type 'object' must be an object");
         }
         
         parent::__construct($name, $label, $id, $value, $builder_configuration);
         
+        $value = $value ? $value : new \stdClass();
+        
         foreach(get_object_vars($value) as $name => $value) {
             $this->addField($name, ucfirst($name). ' : ', $this->getId().'_'.$name, $value, $builder_configuration);
         }
         
+    }
+    
+    public function setValue($value)
+    {
+        if ( $value && !is_object($value) ) {
+            throw new \InvalidArgumentException("Value of field type 'object' must be an object");
+        }
+        
+        parent::setValue($value);
+        
+        $value = $value ? $value : new \stdClass();
+        
+        foreach(get_object_vars($value) as $name => $value) {
+            $this->addField($name, ucfirst($name). ' : ', $this->getId().'_'.$name, $value, $builder_configuration);
+        }
     }
     
     public function addField($name, $label, $id, $value, $builder_configuration = array())

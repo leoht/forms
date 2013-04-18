@@ -75,6 +75,27 @@ $builder->addField('choice', 'gender', 'Are you : ')
             ->addChoice('a', 'an alien');
 ```
 
+##Object
+
+An object field is actually more a "super field" that crates one text field for each attribute of the given object.
+```php
+$my_object = new SomeClass();
+$my_object->foo = "Bar"
+$builder->addField('object', 'object', null, null, $my_object);
+```
+Note that the attributes you want in the form must have the public visibility. If you don't want some attribute to be
+in the form, you can set them private or use the `ignoreAttribute($attribute)` method on the object field.
+
+Since every attribute will have it's own field, you can set rules or custom label for each of them
+```php
+$my_object = new SomeClass();
+$my_object->foo = 'Bar';
+$builder->addField('object', 'object', null, null, $my_object)
+            ->setAttributeLabel('foo', 'Foo : ')
+            ->setAttributeRules('foo', array('equals' => 'Bar'));
+```
+
+
 ##Quiz
 
 With the quiz field you can propose a question randomly choosen in a list of questions you created, and the field is valid only if the user gives the right answer.

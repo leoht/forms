@@ -3,28 +3,28 @@
 You can use various field types to build your form, here is the complete list of all the available types and their documentation.
 You can also create your own field type.
 
-##text
+##Text
 
 This a simple text field, on a single line
 ```php
 $builder->addField('text', 'username', 'Your username : ');
 ```
 
-##textarea
+##Textarea
 
 A textarea field, as in HTML
 ```php
 $builder->addField('textarea', 'message', 'Your message : ');
 ```
 
-##password
+##Password
 
 A password field
 ```php
 $builder->addField('password', 'userpass', 'Your password : ');
 ```
 
-##email
+##Email
 
 Like a text field, except that the field will be valid only if the user enters a valid email address
 (actually the regexp rule is automatically added to the field, with the regular expression of an email address).
@@ -32,21 +32,21 @@ Like a text field, except that the field will be valid only if the user enters a
 $builder->addField('email', 'email', 'Your email address : ');
 ```
 
-##file
+##File
 
 A field to upload some file
 ```php
 $builder->addField('file', 'upload', 'Your upload : ');
 ```
 
-##checkbox
+##Checkbox
 
 A checkbox
 ```php
 $builder->addField('checkbox', 'conditions', 'I agree with terms of service');
 ```
 
-##select
+##Select
 
 A select list with options. Use the `addOption($value, $label, $default)` on the field object to add an option.
 The `$default` parameter is optional and has its default value set to false. If set to true, the option will be selected by default.
@@ -65,7 +65,7 @@ $builder->addField('select', 'food', 'Do you prefer : ')
             ->setMultiple();
 ```
 
-##choice
+##Choice
 
 A choice field is like a select field, but a radio button will be created for each choice the user can make. Only one choice is possible.
 ```php
@@ -75,7 +75,7 @@ $builder->addField('choice', 'gender', 'Are you : ')
             ->addChoice('a', 'an alien');
 ```
 
-##quiz
+##Quiz
 
 With the quiz field you can propose a question randomly choosen in a list of questions you created, and the field is valid only if the user gives the right answer.
 ```php
@@ -101,3 +101,42 @@ $builder->addField('simple_captcha', 'captcha')
             ->setQuestion('How much are % and % ?', '+');
 ```
 Note that the two '%' will be replaced by the randomly choosen numbers. The argument `$operation` can be set to '+','-','*' or '/'.
+
+##Create your own field type
+
+Creating your own field type is really easy. Your type can be any PHP class but it must extends <b>Forms\Field\Field</b> or any other field type that extends it.
+Since your class extends it, you must redeclare the two abstract methods `getFieldName()` and `getBody()`.
+
+Let's take a really simple example : suppose you want to create a specific field to store an age. So your field must accept only numbers between 13 (supposing your website
+only accepts children older than 13) and let's say 122 (!). You can of course do this with rules (and we're going to use rules, indeed) on a simple text field, but let's create
+this custom field type for the example :
+
+```php
+use Forms\Field\TextField
+
+class MyAgeField extends TextField {
+    
+    public function __construct($name, $label = null, $id = null, $value = null, $builder_configuration = array())
+    {
+        parent::__construct($name, $label, $id, $value, $builder_configuration);
+        $this->addRules(array('number' => true, 'between' => array(13, 122)); // here we go, adding the rules we told before to match a valid age
+    }
+
+    // we don't have to redeclare the getBody() method,
+    // because our class extends TextField, which already redeclare this method.
+    // And since our field will only be a simple text field with rules added to it, we don't have to worry about it at all.
+
+    // but you must redeclare getFieldName()
+    public function getFieldName()
+    {
+        return 'age';
+    }
+}
+```
+
+Now you have to tell the builder that your field exist and can be used into your form, you can do that with the builder's `addFieldType($type, $class)` method.
+```php
+$builder->addFieldType('age', 'MyAgeField');
+```
+
+And that's it !

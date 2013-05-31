@@ -77,6 +77,19 @@ $builder->addField('text', 'fruit', 'Which fruit do you prefer ?')
                 ));
 ```
 
+You can also directly use a Rule object (which are all located under namespace Forms\Validation\Rule), like this :
+
+```php
+use Forms\Validation\Rule\MaxValueRule;
+use Forms\Validation\Rule\NumberRule
+
+// instanciate the builder, etc...
+
+$builder->addField('text', 'age', 'Enter your age: ')
+            ->addRule(new NumberRule(true) )
+            ->addRule(new MaxValueRule(120) );
+```
+
 Validity of the form can be tested after submission using the `isValid()` method on the Form object.
 See <b>doc/rules.md</b> for the list of all available rules.
 

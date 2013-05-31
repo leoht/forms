@@ -111,6 +111,8 @@ abstract class Field
     public function addRule(Rule $rule)
     {
         $this->rules[$rule->getName()] = $rule;
+
+        return $this;
     }
     
     /**

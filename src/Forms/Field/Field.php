@@ -38,6 +38,11 @@ abstract class Field
     protected $rules;
     
     /**
+     * @var array
+     */
+    protected $attributes;
+    
+    /**
      * @var array 
      */
     protected $builder_configuration;
@@ -58,6 +63,7 @@ abstract class Field
         $this->id = $id != null ? $id : $name;
         $this->value = $value;
         $this->rules = array();
+        $this->attributes = array();
         $this->builder_configuration = $builder_configuration;
                 
     }
@@ -135,6 +141,36 @@ abstract class Field
     }
     
     /**
+     * Get the field attributes
+     * @return array 
+     */
+    public function getAttributes()
+    {
+        return $this->attributes;
+    }
+    
+    /**
+     * Add an attribute to the field
+     * @param string $name
+     * @param string $value 
+     */
+    public function addAttribute($name, $value)
+    {
+        $this->attributes[$name] = $value;
+    }
+    
+    public function getFormattedAttributes()
+    {
+        $attributes = $this->getAttributes();
+        $formatted = ' ';
+        foreach($attributes as $name => $value) {
+            $formatted .= $name.' = "'.$value.'" ';
+        }
+        
+        return $formatted;
+    }
+    
+    /**
      * Get the serialized rules array (used for saving rules in a hidden input)
      * 
      * @return type 
@@ -171,13 +207,20 @@ abstract class Field
         return $this;
     }
     
-    
+    /**
+     * Check if the field has validation rules
+     * @return boolean 
+     */
     public function hasRules()
     {
         return 0 != count($this->getRules());
     }
     
-    
+    /**
+     * Check if the field has a validation rule
+     * @param string $name the name of the rule
+     * @return boolean 
+     */
     public function hasRule($name)
     {
         return array_key_exists($name, $this->getRules());

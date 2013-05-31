@@ -13,6 +13,14 @@ class SelectField extends Field
     
     protected $options = array();
     
+    /**
+     * Add an option to the list
+     * 
+     * @param string $value
+     * @param string $label
+     * @param boolean $default if set to true, this will be the default option
+     * @return \Forms\Field\SelectField 
+     */
     public function addOption($value, $label, $default = false)
     {
         $this->options[$value] = array(
@@ -23,13 +31,18 @@ class SelectField extends Field
         return $this;
     }
     
-    
+    /**
+     * Allow multiple selection for the field
+     * 
+     * @return \Forms\Field\SelectField  
+     */
     public function setMultiple()
     {
         $this->multiple = true;
         
         return $this;
     }
+    
     
     public function getBody()
     {
@@ -56,7 +69,7 @@ class SelectField extends Field
     }
     
     
-
+    
     public function getFieldName()
     {
         return 'select';

@@ -21,6 +21,7 @@ class Builder extends FormBuilder
                     'quiz' => $namespace . "QuizField",
                     'captcha' => $namespace . "SimpleCaptchaField",
                     'object' => $namespace . "ObjectField",
+                    'hidden' => $namespace . "HiddenField",
                     'submit' => $namespace . "SubmitField",
                 ), $this->getExtraFieldTypes());
     }

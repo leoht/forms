@@ -8,9 +8,18 @@ use Forms\Field\Field;
  */
 class ChoiceField extends Field
 {
-    
+    /**
+     * @var array
+     */
     protected $choices = array();
     
+    /**
+     * Add a choice for the field
+     * 
+     * @param string $value
+     * @param string $label
+     * @return \Forms\Field\ChoiceField 
+     */
     public function addChoice($value, $label)
     {
         $this->choices[$value] = $label;
@@ -37,7 +46,6 @@ class ChoiceField extends Field
     }
     
     
-
     public function getFieldName()
     {
         return 'choice';

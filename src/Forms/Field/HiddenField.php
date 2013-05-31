@@ -4,9 +4,9 @@ namespace Forms\Field;
 use Forms\Field\Field;
 
 /**
- * Simple password field  
+ * Simple hidden field type 
  */
-class PasswordField extends Field
+class HiddenField extends Field
 {
     
     public function getBody()
@@ -19,13 +19,13 @@ class PasswordField extends Field
         $config = $this->getBuilderConfiguration();
         $required = $this->hasRule('not_empty') && $config['html5_required'] ? 'required' : '';
         
-        return "<label for=\"$id\" >$label</label> <input type=\"password\" name=\"$name\" id=\"$id\" value=\"$value\" $required />";
+        return "<input type=\"hidden\" name=\"$name\" id=\"$id\" value=\"$value\" $required />";
     }
     
     
-    
+
     public function getFieldName()
     {
-        return 'password';
+        return 'hidden';
     }
 }

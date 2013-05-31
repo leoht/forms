@@ -3,6 +3,9 @@ namespace Forms\Field;
 
 use Forms\Field\Field;
 use Forms\Field\TextField;
+use Forms\Field\CheckboxField;
+use Forms\Field\SelectField;
+use \Traversable;
 
 /**
  * The ObjectField builds a subform with one field for each public attribute of the given object
@@ -17,9 +20,7 @@ class ObjectField extends Field
     protected $fields;
     
     /**
-     * Constructor
-     * 
-     * @see Forms\Field\Field::__construct
+     * @throws \InvalidArgumentException if the given value is not an object.
      */
     public function __construct($name, $label = null, $id = null, $value = null, array $builder_configuration = array())
     {
@@ -68,8 +69,15 @@ class ObjectField extends Field
      */
     public function addField($name, $label, $id, $value, $builder_configuration = array())
     {
-        $this->fields[$name] = new TextField($name, $label, $id, $value, $builder_configuration);
-        
+        if (is_string($value) || is_numeric($value)) {
+            $this->fields[$name] = new TextField($name, $label, $id, $value, $builder_configuration);
+        } else if (is_bool($value)) {
+            $this->fields[$name] = new CheckboxField($name, $label, $id, $value, $builder_configuration);
+        } else if (is_array($value) || $value instanceof Traversable) {
+            foreach($value as $key => $elem) {
+                $this->addField($name.'_'.$key, $label.' ('.$key.')', $id, $elem, $builder_configuration);
+            } 
+        }
         return $this;
     }
     
@@ -148,10 +156,7 @@ class ObjectField extends Field
         }
     }
     
-    /**
-     * Get the field body with all the attribute fields
-     * @return string 
-     */
+    
     public function getBody()
     {
         if (empty($this->fields)) return;

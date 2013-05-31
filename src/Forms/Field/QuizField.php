@@ -72,7 +72,6 @@ class QuizField extends Field
     }
     
     
-
     public function getFieldName()
     {
         return 'quiz';

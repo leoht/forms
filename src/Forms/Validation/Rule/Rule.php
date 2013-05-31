@@ -15,6 +15,19 @@ abstract class Rule
      * @var mixed 
      */
     protected $value;
+
+
+    /**
+    * Constructor.
+    *
+    * @param mixed $value The rule value
+    */
+    public function __construct($value = null)
+    {
+        if ($value) {
+            $this->setValue($value);
+        }
+    }
     
     /**
      * Set the value of the rule.
